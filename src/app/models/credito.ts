@@ -29,16 +29,16 @@ export class Credito {
         brak = true;
         const res = this.evaluarCodigoCargado(codigo);
         if (this.rol === 'admin' && res.length > 1) {
-          respuesta = 'El codigo ya se encuentra cargado 2 veces';
+          respuesta = 'El código ya se encuentra cargado 2 veces';
         } else if (this.rol !== 'admin' && res.length) {
-          respuesta = 'El codigo ya se encuentra cargado';
+          respuesta = 'El código ya se encuentra cargado';
         } else {
           this.credito = this.credito + item.puntos;
           this.codigosCargados.push(codigo);
           respuesta = '';
         }
       } else if (!brak) {
-        respuesta = 'El codigo no coincide';
+        respuesta = 'El código que intenta cargar no existe! ';
       }
     });
 

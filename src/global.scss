@@ -73,3 +73,60 @@ body {
   display: flex;
   justify-content: space-evenly;
 }
+
+.custom-swal-popup {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Agrega una sombra para dar más profundidad */
+  border-radius: 10px; /* Bordes redondeados */
+}
+
+.custom-confirm-button {
+  background-color: hsla(46, 100%, 82%, 1); /* Color dorado */
+  color: hsla(235, 14%, 19%, 1); /* Texto oscuro */
+  border-radius: 10px; /* Bordes redondeados */
+  padding: 10px 20px;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra para darle profundidad */
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: hsla(
+      46,
+      100%,
+      72%,
+      1
+    ); /* Un poco más oscuro al pasar el mouse */
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px hsla(46, 100%, 82%, 0.5); /* Efecto de foco */
+  }
+}
+
+.custom-cancel-button {
+  background-color: transparent;
+  color: hsla(46, 100%, 82%, 1); /* Color dorado */
+  border: 2px solid hsla(46, 100%, 82%, 1); /* Borde dorado */
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  &:hover {
+    background-color: hsla(
+      46,
+      100%,
+      82%,
+      0.1
+    ); /* Fondo semi-transparente dorado al hacer hover */
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px hsla(46, 100%, 82%, 0.5); /* Efecto de foco */
+  }
+}

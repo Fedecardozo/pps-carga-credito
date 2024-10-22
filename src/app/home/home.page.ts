@@ -18,10 +18,11 @@ import {
 } from '@ionic/angular/standalone';
 import { UsersService } from '../service/users.service';
 import { Barcode, BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ViewWillEnter } from '@ionic/angular';
 import { DbService } from '../service/db.service';
 import { Credito } from '../models/credito';
 import { Subscription } from 'rxjs';
+import { Alert } from '../models/alert';
 
 @Component({
   selector: 'app-home',
@@ -45,7 +46,7 @@ import { Subscription } from 'rxjs';
     IonContent,
   ],
 })
-export class HomePage implements OnInit {
+export class HomePage implements ViewWillEnter {
   public router: Router = inject(Router);
   public auth: UsersService = inject(UsersService);
   public db: DbService = inject(DbService);
@@ -62,22 +63,29 @@ export class HomePage implements OnInit {
   creditoUser?: Credito;
   index: number = 0;
   sub?: Subscription;
+  usuario: string = '';
 
-  constructor(private alertController: AlertController) {
+  constructor(private alertController: AlertController) {}
+
+  asignarUsuario() {
+    this.usuario = this.auth.correo || '';
     if (this.auth.correo === 'fede@gmail.com') {
+      console.log('entro');
       this.categoria = 'Administrador';
       this.rol = 'admin';
+      this.usuario = this.categoria;
     }
   }
 
-  ngOnInit() {
+  ionViewWillEnter() {
+    this.asignarUsuario();
     this.getCredito();
     // BarcodeScanner.isSupported().then((result) => {
     //   this.isSupported = result.supported;
     // });
-    setTimeout(() => {
-      this.cargarCredito(this.text[2]);
-    }, 5000);
+    // setTimeout(() => {
+    //   this.cargarCredito('this.text[2]');
+    // }, 5000);
   }
 
   async scan(): Promise<void> {
@@ -88,8 +96,8 @@ export class HomePage implements OnInit {
     }
     const { barcodes } = await BarcodeScanner.scan();
     this.barcodes.push(...barcodes);
-    // this.cargarCredito(this.barcodes[this.index].rawValue);//original
-    // this.index++;
+    this.cargarCredito(this.barcodes[this.index].rawValue); //original
+    this.index++;
   }
 
   async requestPermissions(): Promise<boolean> {
@@ -135,14 +143,23 @@ export class HomePage implements OnInit {
       if (res === '') {
         this.db.updateCredito(this.creditoUser);
         console.log('exito');
+        Alert.bien(
+          `Sumaste: ${puntos} puntos`,
+          'Se cargó correctamente el código'
+        );
       } else {
         console.log(res);
+        Alert.error('Error!', res);
       }
     } else if (puntos > 0) {
       this.db.agregarCreditonDb(
         new Credito(this.auth.correo || '', puntos, this.rol, [codigo])
       );
       console.log('se cargo al vacio');
+      Alert.bien(
+        `Sumaste: ${puntos} puntos`,
+        'Se cargó correctamente el código'
+      );
     }
   }
 
@@ -151,9 +168,9 @@ export class HomePage implements OnInit {
     this.cantidad = 0;
     this.creditoUser = undefined;
     this.barcodes = [];
-    setTimeout(() => {
-      this.cargarCredito(this.text[2]);
-    }, 5000);
+    // setTimeout(() => {
+    //   this.cargarCredito(this.text[2]);
+    // }, 5000);
     // this.sub?.unsubscribe();
   }
 

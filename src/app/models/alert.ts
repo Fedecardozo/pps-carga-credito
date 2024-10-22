@@ -3,14 +3,17 @@ import Swal, { SweetAlertOptions } from 'sweetalert2';
 export class Alert {
   private static base: SweetAlertOptions = {
     heightAuto: false,
-    backdrop: true, // Esta opción asegura que el fondo sea oscuro
     allowOutsideClick: false, // Impide cerrar al hacer clic fuera del modal
+    background: 'hsla(235, 14%, 19%, 1)', // Color de fondo oscuro
+    color: 'hsla(46, 100%, 82%, 1)', // Texto en tono dorado
+    confirmButtonColor: 'hsla(46, 100%, 82%, 1)', // Botón en dorado claro
+    backdrop: `rgba(0, 0, 0, 0.4)`,
     confirmButtonText: 'Aceptar',
-    background: '#310a6b',
-    color: '#f5f2ff',
+
     customClass: {
-      confirmButton: 'btn-ok',
-      title: 'alert-title',
+      popup: 'custom-swal-popup',
+      confirmButton: 'custom-confirm-button',
+      cancelButton: 'custom-cancel-button',
     },
   };
 
@@ -18,6 +21,15 @@ export class Alert {
     Swal.fire(Alert.base);
     Swal.update({
       icon: 'error',
+      title: titulo,
+      text: texto,
+    });
+  }
+
+  static bien(titulo: string, texto: string) {
+    Swal.fire(Alert.base);
+    Swal.update({
+      icon: 'success',
       title: titulo,
       text: texto,
     });

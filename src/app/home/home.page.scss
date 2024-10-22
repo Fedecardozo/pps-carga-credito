@@ -1,9 +1,68 @@
 header {
   display: flex;
-  justify-content: space-around;
-  width: 100%;
-  margin-top: 15px;
+  justify-content: end;
+  width: 98%;
+  // margin-top: 15px;
 }
 ion-col {
   text-align: center;
+}
+
+.info-container {
+  background-color: hsla(
+    235,
+    14%,
+    19%,
+    0.9
+  ); /* Fondo semi-transparente para destacar el contenido */
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Sombra para dar profundidad */
+  max-width: 600px; /* Limitar el ancho máximo */
+  margin: 0 auto; /* Centrar el grid horizontalmente */
+}
+
+.usuario-text {
+  font-size: 28px;
+  color: hsla(46, 100%, 82%, 1); /* Tono dorado que combina con tu fondo */
+  font-weight: bold;
+  margin-bottom: 10px; /* Separación entre título y cantidad */
+  text-align: center;
+}
+
+.cantidad-title {
+  font-size: 26px;
+  color: hsla(46, 100%, 82%, 1);
+  font-weight: 600;
+  text-align: center;
+}
+
+.cantidad-value {
+  font-size: 24px;
+  color: hsla(46, 100%, 82%, 1);
+  font-weight: bold;
+  margin-top: 5px;
+  text-align: center;
+}
+
+span {
+  color: #f2f2f2;
+}
+
+main {
+  min-height: 80vh;
+  max-height: 80vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.botones {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  padding: 10px;
 }

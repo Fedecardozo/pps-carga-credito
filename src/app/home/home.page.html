@@ -1,12 +1,3 @@
-<header>
-  <ion-button color="primary" (click)="limpiar()">
-    Limpiar creditos
-  </ion-button>
-  <ion-button color="danger" (click)="cerrarSesion()">
-    Cerrar sesión
-  </ion-button>
-</header>
-
 <!-- <ion-list>
   @for (item of barcodes; track $index) {
 
@@ -16,23 +7,91 @@
   </ion-item>
   }
 </ion-list> -->
-<ion-fab slot="fixed" vertical="center" horizontal="end">
+<!-- <ion-fab slot="fixed" vertical="center" horizontal="end">
   <ion-fab-button (click)="scan()" [disabled]="!isSupported">
-    <i class="fa-solid fa-camera fa-xl"></i>
+    <i class="fa-solid fa-qrcode fa-2xl"></i>
   </ion-fab-button>
-</ion-fab>
-<ion-grid fixed>
+</ion-fab> -->
+
+<!-- <ion-grid>
   <ion-row>
-    <ion-col size="6">
-      <h2>Usuario</h2>
+    <ion-col
+      size="12"
+      class="ion-justify-content-center ion-align-items-center"
+    >
+      <img src="assets/logo.png" alt="logo" />
+    </ion-col>
+  </ion-row>
+  <ion-row class="ion-justify-content-center ion-align-items-center">
+    <ion-col size="12" class="ion-text-center">
+      <h2 class="usuario-text">Usuario: {{ usuario }}</h2>
+    </ion-col>
+  </ion-row>
+  <ion-row class="ion-justify-content-center ion-align-items-center">
+    <ion-col size="12" class="ion-text-center">
+      <h2 class="cantidad-title">Cantidad acumulada</h2>
+    </ion-col>
+    <ion-col size="12" class="ion-text-center">
+      <h4 class="cantidad-value">{{ cantidad }}</h4>
     </ion-col>
   </ion-row>
   <ion-row>
-    <ion-col size="12">
-      <h2>Cantidad acumulada</h2>
+    <ion-col size="auto">
+      <ion-button color="primary" (click)="limpiar()">
+        Limpiar créditos &nbsp;
+        <i class="fa-solid fa-broom fa-lg"></i>
+      </ion-button>
     </ion-col>
-    <ion-col size="12">
-      <h4>{{this.cantidad}}</h4>
+    <ion-col
+      ><ion-button color="tertiary" (click)="scan()">
+        Capturar QR &nbsp; <i class="fa-solid fa-qrcode fa-lg"></i>
+      </ion-button>
     </ion-col>
   </ion-row>
-</ion-grid>
+</ion-grid> -->
+
+<main>
+  <header>
+    <ion-button color="danger" (click)="cerrarSesion()">
+      Cerrar sesión &nbsp;
+      <i class="fa-solid fa-arrow-right-from-bracket fa-xl"></i>
+    </ion-button>
+  </header>
+  <div>
+    <img src="assets/logo.png" alt="logo" />
+  </div>
+  <div>
+    <div>
+      <h2 class="usuario-text">
+        <i class="fa-regular fa-user fa-lg"></i> {{ usuario }}
+      </h2>
+    </div>
+    <div>
+      <div>
+        <h2 class="cantidad-title">
+          <i class="fa-solid fa-circle-dollar-to-slot fa-lg"></i> Cantidad
+          acumulada
+        </h2>
+      </div>
+      <div>
+        <h4 class="cantidad-value">
+          <i class="fa-solid fa-coins fa-lg"></i> {{ cantidad }} créditos
+        </h4>
+      </div>
+    </div>
+  </div>
+
+  <div class="botones">
+    <div>
+      <ion-button color="secondary" (click)="limpiar()">
+        Limpiar créditos &nbsp;
+        <i class="fa-solid fa-broom fa-lg"></i>
+      </ion-button>
+    </div>
+    <div>
+      <ion-button color="warning" (click)="scan()">
+        Capturar QR &nbsp; <i class="fa-solid fa-qrcode fa-lg"></i>
+      </ion-button>
+    </div>
+  </div>
+</main>
