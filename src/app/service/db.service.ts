@@ -17,4 +17,25 @@ export class DbService {
     // user.setId(documento.ref.id);
     await documento.set({ ...credito });
   }
+
+  //Obtener las imagenes
+  getCreditos() {
+    const col = this.firestore.collection('creditos');
+    return col;
+  }
+
+  //Agregar credito
+  updateCredito(credito: Credito) {
+    const doc = this.firestore.doc('creditos/' + credito.user);
+    doc.update({
+      codigosCargados: credito.codigosCargados,
+      credito: credito.credito,
+    });
+  }
+
+  //Eliminar creditos
+  deleteCredito(user: string) {
+    const doc = this.firestore.doc('creditos/' + user);
+    doc.delete();
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   IonHeader,
@@ -12,10 +12,16 @@ import {
   IonItem,
   IonInput,
   IonList,
+  IonGrid,
+  IonRow,
+  IonCol,
 } from '@ionic/angular/standalone';
 import { UsersService } from '../service/users.service';
 import { Barcode, BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
 import { AlertController } from '@ionic/angular';
+import { DbService } from '../service/db.service';
+import { Credito } from '../models/credito';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -23,6 +29,9 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['home.page.scss'],
   standalone: true,
   imports: [
+    IonCol,
+    IonRow,
+    IonGrid,
     IonList,
     IonInput,
     IonItem,
@@ -36,23 +45,39 @@ import { AlertController } from '@ionic/angular';
     IonContent,
   ],
 })
-export class HomePage {
+export class HomePage implements OnInit {
   public router: Router = inject(Router);
   public auth: UsersService = inject(UsersService);
+  public db: DbService = inject(DbService);
   text: string[] = [
     '8c95def646b6127282ed50454b73240300dccabc',
-    'ae338e4e0cbb4e4bcffaf9ce5b409feb8edd5172',
+    'ae338e4e0cbb4e4bcffaf9ce5b409feb8edd5172 ',
     '2786f4877b9091dcad7f35751bfcf5d5ea712b2f',
   ];
   isSupported = false;
   barcodes: Barcode[] = [];
+  cantidad: number = 0;
+  categoria: string = '';
+  rol: string = '';
+  creditoUser?: Credito;
+  index: number = 0;
+  sub?: Subscription;
 
-  constructor(private alertController: AlertController) {}
+  constructor(private alertController: AlertController) {
+    if (this.auth.correo === 'fede@gmail.com') {
+      this.categoria = 'Administrador';
+      this.rol = 'admin';
+    }
+  }
 
   ngOnInit() {
-    BarcodeScanner.isSupported().then((result) => {
-      this.isSupported = result.supported;
-    });
+    this.getCredito();
+    // BarcodeScanner.isSupported().then((result) => {
+    //   this.isSupported = result.supported;
+    // });
+    setTimeout(() => {
+      this.cargarCredito(this.text[2]);
+    }, 5000);
   }
 
   async scan(): Promise<void> {
@@ -63,6 +88,8 @@ export class HomePage {
     }
     const { barcodes } = await BarcodeScanner.scan();
     this.barcodes.push(...barcodes);
+    // this.cargarCredito(this.barcodes[this.index].rawValue);//original
+    // this.index++;
   }
 
   async requestPermissions(): Promise<boolean> {
@@ -79,8 +106,65 @@ export class HomePage {
     await alert.present();
   }
 
+  getCredito() {
+    this.sub = this.db
+      .getCreditos()
+      .valueChanges()
+      .subscribe((next) => {
+        console.log(next);
+        const aux = next as Credito[];
+        aux.forEach((val) => {
+          if (val.user === this.auth.correo) {
+            this.creditoUser = new Credito(
+              val.user,
+              val.credito,
+              val.rol,
+              val.codigosCargados
+            );
+            this.cantidad = this.creditoUser.credito;
+            console.log(this.creditoUser);
+          }
+        });
+      });
+  }
+
+  cargarCredito(codigo: string) {
+    const puntos: number = Credito.isCodigo(codigo);
+    if (this.creditoUser) {
+      const res = this.creditoUser.equals(codigo);
+      if (res === '') {
+        this.db.updateCredito(this.creditoUser);
+        console.log('exito');
+      } else {
+        console.log(res);
+      }
+    } else if (puntos > 0) {
+      this.db.agregarCreditonDb(
+        new Credito(this.auth.correo || '', puntos, this.rol, [codigo])
+      );
+      console.log('se cargo al vacio');
+    }
+  }
+
+  limpiar() {
+    this.db.deleteCredito(this.auth.correo || '');
+    this.cantidad = 0;
+    this.creditoUser = undefined;
+    this.barcodes = [];
+    setTimeout(() => {
+      this.cargarCredito(this.text[2]);
+    }, 5000);
+    // this.sub?.unsubscribe();
+  }
+
   async cerrarSesion() {
     await this.auth.cerrarSesion();
     this.router.navigateByUrl('/login');
+    this.ngOnDestroy();
+  }
+
+  ngOnDestroy(): void {
+    this.sub?.unsubscribe();
+    console.log('destroy');
   }
 }
