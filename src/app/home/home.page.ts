@@ -168,6 +168,7 @@ export class HomePage implements ViewWillEnter {
     this.cantidad = 0;
     this.creditoUser = undefined;
     this.barcodes = [];
+    this.index = 0;
     // setTimeout(() => {
     //   this.cargarCredito(this.text[2]);
     // }, 5000);
