@@ -177,8 +177,8 @@ export class HomePage implements ViewWillEnter {
     if (
       (
         await Alert.question(
-          '¿Estas seguro de eliminar los créditos?',
-          'Si elimina los créditos se borraran permanentemente'
+          '¿Estás seguro de eliminar los créditos?',
+          'Si elimina los créditos se borrarán permanentemente'
         )
       ).isConfirmed
     ) {
