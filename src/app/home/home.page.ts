@@ -15,6 +15,11 @@ import {
   IonGrid,
   IonRow,
   IonCol,
+  IonCard,
+  IonCardTitle,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardContent,
 } from '@ionic/angular/standalone';
 import { UsersService } from '../service/users.service';
 import { Barcode, BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
@@ -30,6 +35,11 @@ import { Alert } from '../models/alert';
   styleUrls: ['home.page.scss'],
   standalone: true,
   imports: [
+    IonCardContent,
+    IonCardSubtitle,
+    IonCardHeader,
+    IonCardTitle,
+    IonCard,
     IonCol,
     IonRow,
     IonGrid,
@@ -163,16 +173,25 @@ export class HomePage implements ViewWillEnter {
     }
   }
 
-  limpiar() {
-    this.db.deleteCredito(this.auth.correo || '');
-    this.cantidad = 0;
-    this.creditoUser = undefined;
-    this.barcodes = [];
-    this.index = 0;
-    // setTimeout(() => {
-    //   this.cargarCredito(this.text[2]);
-    // }, 5000);
-    // this.sub?.unsubscribe();
+  async limpiar() {
+    if (
+      (
+        await Alert.question(
+          '¿Estas seguro de eliminar los créditos?',
+          'Si elimina los créditos se borraran permanentemente'
+        )
+      ).isConfirmed
+    ) {
+      this.db.deleteCredito(this.auth.correo || '');
+      this.cantidad = 0;
+      this.creditoUser = undefined;
+      this.barcodes = [];
+      this.index = 0;
+      // setTimeout(() => {
+      //   this.cargarCredito(this.text[2]);
+      // }, 5000);
+      // this.sub?.unsubscribe();
+    }
   }
 
   async cerrarSesion() {

@@ -52,46 +52,50 @@
 
 <main>
   <header>
-    <ion-button color="danger" (click)="cerrarSesion()">
-      Cerrar sesión &nbsp;
-      <i class="fa-solid fa-arrow-right-from-bracket fa-xl"></i>
-    </ion-button>
-  </header>
-  <div>
-    <img src="assets/logo.png" alt="logo" />
-  </div>
-  <div>
-    <div>
-      <h2 class="usuario-text">
-        <i class="fa-regular fa-user fa-lg"></i> {{ usuario }}
-      </h2>
-    </div>
-    <div>
-      <div>
-        <h2 class="cantidad-title">
-          <i class="fa-solid fa-circle-dollar-to-slot fa-lg"></i> Cantidad
-          acumulada
-        </h2>
-      </div>
-      <div>
-        <h4 class="cantidad-value">
-          <i class="fa-solid fa-coins fa-lg"></i> {{ cantidad }} créditos
-        </h4>
-      </div>
-    </div>
-  </div>
-
-  <div class="botones">
     <div>
       <ion-button color="secondary" (click)="limpiar()">
         Limpiar créditos &nbsp;
         <i class="fa-solid fa-broom fa-lg"></i>
       </ion-button>
     </div>
+    <ion-button color="danger" (click)="cerrarSesion()">
+      <i class="fa-solid fa-arrow-right-from-bracket fa-xl"></i>
+    </ion-button>
+  </header>
+
+  <div>
+    <h2 class="usuario-text">
+      <i class="fa-regular fa-user fa-lg"></i> {{ usuario }}
+    </h2>
+  </div>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title
+        ><h2 class="cantidad-title">
+          <i class="fa-solid fa-coins fa-lg"></i> Crédito acumulado
+        </h2></ion-card-title
+      >
+    </ion-card-header>
+
+    <ion-card-content>
+      <h4 class="cantidad-value">{{ cantidad }}</h4>
+    </ion-card-content>
+  </ion-card>
+
+  <div class="botones">
     <div>
-      <ion-button color="warning" (click)="scan()">
+      <ion-button
+        color="warning"
+        (click)="scan()"
+        style="width: 90vw; margin-bottom: 4rem"
+      >
         Capturar QR &nbsp; <i class="fa-solid fa-qrcode fa-lg"></i>
       </ion-button>
     </div>
   </div>
+
+  <!-- <div>
+    <img src="assets/logo.png" alt="logo" />
+  </div> -->
 </main>
