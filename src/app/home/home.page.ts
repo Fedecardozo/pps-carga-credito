@@ -99,14 +99,21 @@ export class HomePage implements ViewWillEnter {
   }
 
   async scan(): Promise<void> {
+    try {
+      await BarcodeScanner.installGoogleBarcodeScannerModule();
+    } catch (error) {
+      console.log(error);
+    }
     const granted = await this.requestPermissions();
     if (!granted) {
       this.presentAlert();
       return;
     }
+
     const { barcodes } = await BarcodeScanner.scan();
     this.barcodes.push(...barcodes);
     this.cargarCredito(this.barcodes[this.index].rawValue); //original
+    console.log(this.barcodes[this.index].rawValue);
     this.index++;
   }
 
