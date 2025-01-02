@@ -8,16 +8,16 @@ acumularlo, pero si lo intenta hacer más de dos veces no se le permitirá y se 
 
 ## Splash
 
-![splash-credito](https://github.com/user-attachments/assets/a158e639-e141-403c-b262-fbc320de4ea3)
+<img src="https://github.com/user-attachments/assets/a158e639-e141-403c-b262-fbc320de4ea3" alt="Logo" width="150">
 
 ## Inicio
 
-![Screenshot_20250102_121340_carga_de_credito](https://github.com/user-attachments/assets/8d9a41d4-d973-48e6-b232-a0a20a29f39b)
+<img src="https://github.com/user-attachments/assets/8d9a41d4-d973-48e6-b232-a0a20a29f39b" alt="Inicio" width="150">
 
 ## Admin
 
-![Screenshot_20250102_121351_carga_de_credito](https://github.com/user-attachments/assets/3c6c0d9e-d101-4553-9a82-510820246baa)
+<img src="https://github.com/user-attachments/assets/3c6c0d9e-d101-4553-9a82-510820246baa" alt="Admin" width="150">
 
 ## Usuario 
 
-![Screenshot_20250102_121415_carga_de_credito](https://github.com/user-attachments/assets/2540a8cc-fd6f-45ac-9e67-e340501991bc)
+<img src="https://github.com/user-attachments/assets/2540a8cc-fd6f-45ac-9e67-e340501991bc" alt="Usuario" width="150">
